@@ -1,0 +1,32 @@
+name: build-main
+run-name: build-main
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Run every day at midnight
+    - cron: 0 0 * * *
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    name: Download and save data
+    steps:
+      # Check repository
+      - uses: actions/checkout@v3
+      
+      # Install python in container
+      - uses: actions/setup-python@v4
+      
+      # Install python libraries needed to run pud-zones.py
+      - run: pip install requests
+      - run: pip install shapely
+
+      # Run pud-zones.py
+      - run: python pud-zones.py
+      
+      # Commit changes to repository
+      - uses: stefanzweifel/git-auto-commit-action@v5
