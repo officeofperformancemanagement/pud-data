@@ -62,7 +62,7 @@ for i in range(1_000_000):
     url += "&returnTrueCurves=false"
     url += "&returnExceededLimitFeatures=true"
     url += "&sqlFormat=standard"
-    url += "&f=pgeojson"
+    url += "&f=geojson"
 
     # Issue the request to get the data
     content = requests.get(url=url).content
